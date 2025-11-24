@@ -1,15 +1,14 @@
 from db.database import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 
 
-class Court(Base):
-    __tablename__ = 'court'
+class Courts(Base):
+    __tablename__ = "courts"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    sport_type = Column(String)
-    indoor_or_outdoor = Column(String)
-    min_reservation_time = Column(Integer)
-    max_reservation_time = Column(Integer)
+    sports_type = Column(String)
+    description = Column(String)
     created_at = Column(String)
     updated_at = Column(String)
+    owner_id = Column(Integer, ForeignKey("users.id"))
