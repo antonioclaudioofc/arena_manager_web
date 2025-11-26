@@ -18,6 +18,7 @@ class AuthService:
     def autheticate_user(username: str,
                          password: str,
                          db):
+
         user = db.query(Users).filter(Users.username == username).first()
 
         if not user:
@@ -32,6 +33,7 @@ class AuthService:
                             user_id: int,
                             role: str,
                             expires_delta: timedelta):
+
         encode = {"sub": username, "id": user_id, "role": role}
         expires = datetime.now(timezone.utc) + expires_delta
         encode.update({"exp": expires})
@@ -39,6 +41,7 @@ class AuthService:
         return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
 
     async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+
         try:
             payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
             username: str = payload.get("sub")
@@ -59,6 +62,7 @@ class AuthService:
 
     async def create_user(db: db_dependency,
                           user_request: AuthCreate):
+
         auth_model = Users(
             email=user_request.email,
             username=user_request.username,
@@ -75,6 +79,7 @@ class AuthService:
     async def login_for_access_token(
             form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
             db: db_dependency):
+
         user = AuthService.autheticate_user(
             form_data.username, form_data.password, db)
         if not user:

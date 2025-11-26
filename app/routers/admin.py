@@ -15,7 +15,7 @@ user_dependency = Annotated[dict, Depends(AuthService.get_current_user)]
 
 
 @router.post("/court", status_code=status.HTTP_201_CREATED)
-async def create_user(user: user_dependency,
+async def create_court(user: user_dependency,
                       db: db_dependency,
                       court_request: CourtCreate):
     await AdminService.create_court(user, db, court_request)

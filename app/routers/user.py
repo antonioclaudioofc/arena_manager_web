@@ -16,10 +16,13 @@ user_dependency = Annotated[dict, Depends(AuthService.get_current_user)]
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
-async def get_user(user: user_dependency, db: db_dependency):
+async def get_user(user: user_dependency,
+                   db: db_dependency):
     return await UserService.get_user(user, db)
 
 
 @router.put("/password", status_code=status.HTTP_204_NO_CONTENT)
-async def change_password(user: user_dependency, db: db_dependency, user_verification: UserVerification):
+async def change_password(user: user_dependency,
+                          db: db_dependency,
+                          user_verification: UserVerification):
     await UserService.change_password(user, db, user_verification)

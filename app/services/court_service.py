@@ -9,7 +9,9 @@ class CourtService:
     async def read_all_courts(db: db_dependency):
         return db.query(Courts).all()
 
-    async def read_court(db: db_dependency, court_id: int = Path(gt=0)):
+    async def read_court(db: db_dependency, 
+                         court_id: int = Path(gt=0)):
+        
         court_model = db.query(Courts).filter(Courts.id == court_id).first()
 
         if court_model is not None:
