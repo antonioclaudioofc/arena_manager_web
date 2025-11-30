@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.database import engine, Base
 from routers import auth, court, admin, user, schedule, reservation
-from mangum import Mangum
 
 app = FastAPI()
 
@@ -24,5 +23,3 @@ app.include_router(auth.router)
 app.include_router(court.router)
 app.include_router(schedule.router)
 app.include_router(reservation.router)
-
-handler = Mangum(app)
