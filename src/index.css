@@ -1,2 +1,31 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
+:root {
+  --brand-700: #047857; /* emerald-700 */
+  --brand-600: #059669; /* emerald-600 */
+  --brand-500: #10b981; /* emerald-500 */
+  --brand-200: #bbf7d0;
+  --brand-50: #ecfdf5;
+  --muted-600: #6b7280;
+}
+
+/* small helpers for components */
+.brand-bg {
+  background-color: var(--brand-50);
+}
+.brand-accent {
+  color: var(--brand-600);
+}
+.chip-available {
+  background: linear-gradient(
+    180deg,
+    rgba(16, 185, 129, 0.12),
+    rgba(16, 185, 129, 0.04)
+  );
+  border: 1px solid rgba(16, 185, 129, 0.16);
+}
+.chip-occupied {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+}
