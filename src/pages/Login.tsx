@@ -4,9 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../components/Button";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { toast } from "sonner";
-import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import {
   Form,
@@ -19,82 +18,75 @@ import {
 import { Input } from "../components/Input";
 import logo from "../assets/logo.svg";
 import { MoveLeft } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Campo obrigatório",
-  }),
-  password: z.string().min(2, {
-    message: "Campo obrigatório",
-  }),
+  username: z.string().min(2, "Campo obrigatório"),
+  password: z.string().min(2, "Campo obrigatório"),
 });
 
-async function onSubmit(
-  values: z.infer<typeof formSchema>,
-  setLoading: (v: boolean) => void
-) {
-  const API_BASE =
-    (import.meta.env.VITE_API_URL as string) || "http://localhost:8000";
-  setLoading(true);
-  try {
-    const body = new URLSearchParams();
-    body.append("username", values.username);
-    body.append("password", values.password);
-
-    const res = await fetch(`${API_BASE}/auth/token`, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: body.toString(),
-    });
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || `HTTP ${res.status}`);
-    }
-
-    const data = await res.json();
-    // data should contain access_token and token_type (bearer)
-    toast.success("Login realizado com sucesso");
-    console.log("token", data);
-    return data;
-  } catch (err: any) {
-    console.error(err);
-    toast.error(err.message || "Erro no login");
-    return false;
-  } finally {
-    setLoading(false);
-  }
-}
+type LoginSchema = z.infer<typeof formSchema>;
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const auth = useContext(AuthContext);
 
-  useEffect(() => {
-    if (auth?.token) {
-      // already logged in -> redirect
-      window.location.href = "/";
-    }
-  }, [auth?.token]);
+  const navigate = useNavigate();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  useEffect(() => {
+    if (auth.token) navigate("/home");
+  }, [auth.token, navigate]);
+
+  const form = useForm<LoginSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      password: "",
-    },
+    defaultValues: { username: "", password: "" },
   });
+
+  const onSubmit = async (values: LoginSchema) => {
+    const API_BASE = "http://localhost:8000";
+    setLoading(true);
+
+    try {
+      const body = new URLSearchParams();
+      body.append("username", values.username);
+      body.append("password", values.password);
+
+      const response = await fetch(`${API_BASE}/auth/token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.detail || "Erro ao entrar");
+        return;
+      }
+
+      toast.success("Login realizado com sucesso!");
+
+      auth.login(data.access_token);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      toast.error("Erro ao conectar com o servidor");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="w-full min-h-screen bg-green-700 flex justify-center items-center p-8">
       <div className="bg-white w-full max-w-lg p-8 rounded-lg shadow-md shrink-0">
         <a
           href="/"
-          className="p-3 items-center flex gap-3 border border-gray-400 w-max rounded-lg text-green-700"
+          className="p-3 flex gap-3 border border-gray-400 w-max rounded-lg text-green-700"
         >
           <MoveLeft className="w-6 h-6" />
-          <span className="text-base">Voltar</span>
+          <span>Voltar</span>
         </a>
+
         <div className="mb-8">
           <img
             src={logo}
@@ -106,23 +98,9 @@ export default function Login() {
             Preencha as informações abaixo para entrar na sua conta.
           </p>
         </div>
+
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(async (values) => {
-              const data = await onSubmit(values, setLoading);
-              if (data?.access_token) {
-                // use auth context to store token
-                try {
-                  auth.login(data.access_token);
-                } catch {
-                  localStorage.setItem("access_token", data.access_token);
-                }
-                localStorage.setItem("token_type", data.token_type || "bearer");
-                window.location.href = "/";
-              }
-            })}
-            className="space-y-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="username"
@@ -136,6 +114,7 @@ export default function Login() {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="password"
@@ -143,37 +122,29 @@ export default function Login() {
                 <FormItem>
                   <FormLabel>Senha</FormLabel>
                   <FormControl>
-                    <Input placeholder="Insira sua senha" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Insira sua senha"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <a
-              className="block text-right text-green-700 cursor-pointer transition-all hover:text-green-600"
-              href="/forgot"
-            >
-              Esqueceu a senha?
-            </a>
 
-            <div>
-              <Button
-                type="submit"
-                disabled={loading}
-                style={{ backgroundColor: "var(--brand-600)" }}
-                className="w-full"
-              >
-                {loading ? "Entrando..." : "Entrar"}
-              </Button>
-            </div>
+            <Button type="submit" disabled={loading} className="w-full">
+              {loading ? "Entrando..." : "Entrar"}
+            </Button>
           </form>
         </Form>
+
         <a
-          href="/register"
+          href="/login"
           className="mt-4 text-center text-sm cursor-pointer hover:opacity-75 transition-opacity block "
         >
-          <span>Não tem conta? </span>
-          <span className="text-green-700 underline">Criar conta</span>
+          <span>Já possui conta? </span>
+          <span className="text-green-700 underline">Entrar na conta</span>
         </a>
       </div>
     </section>

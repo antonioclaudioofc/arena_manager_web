@@ -54,12 +54,12 @@ export default function Register() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth?.token) {
+    if (auth.token) {
       navigate("/");
     }
-  }, [auth?.token]);
+  }, [auth.token, navigate]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<AuthSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -113,7 +113,7 @@ export default function Register() {
           } catch {
             localStorage.setItem("access_token", tokenData.access_token);
           }
-          localStorage.setItem("token_type", tokenData.token_type || "bearer");
+        
         }
 
         toast.success("Registrado e autenticado com sucesso!");
