@@ -23,15 +23,13 @@ class AdminService:
         )
 
         return AdminRepository.create(court_model, db)
-    
-
 
     @staticmethod
-    def delete_user(user: dict, user_id: int, db):
+    def delete_user(user: dict, db, user_id: int):
         AdminService._ensure_admin(user)
 
         user_model = AdminRepository.get_user_by_id(user_id, db)
         if not user_model:
             raise NotFoundException("Usuário não encontrado!")
 
-        AdminRepository.delete_user(db, user_id)
+        AdminRepository.delete_user(user_id, db)

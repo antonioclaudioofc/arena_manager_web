@@ -1,7 +1,4 @@
 from models.auth import Users
-from models.court import Courts
-from models.reservation import Reservations
-from models.schedule import Schedules
 
 
 class AdminRepository:
@@ -20,7 +17,4 @@ class AdminRepository:
 
     @staticmethod
     def delete_user(user_id: int, db):
-        db.query(Reservations).filter(
-            Reservations.owner_id == user_id).delete()
-        db.query(Schedules).filter(Schedules.owner_id == user_id).delete()
-        db.query(Courts).filter(Courts.owner_id == user_id).delete()
+        db.query(Users).filter(Users.id == user_id).delete()

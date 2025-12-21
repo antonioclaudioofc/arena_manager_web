@@ -1,8 +1,8 @@
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import JWTError
-from app.modules.auth.repository import AuthRepository
-from app.modules.auth.secutiry import create_access_token, decode_token
-from app.shared.exceptions import UnathorizedException
+from modules.auth.repository import AuthRepository
+from modules.auth.secutiry import create_access_token, decode_token
+from shared.exceptions import UnathorizedException
 from models.auth import Users
 from core.security import bcrypt_context, hash_password
 from datetime import datetime, timedelta, timezone
@@ -50,7 +50,7 @@ class AuthService:
         return AuthRepository.create(user_model, db)
 
     @staticmethod
-    def decode_current_user(token: str):
+    def get_current_user(token: str):
         try:
             payload = decode_token(token)
             return {
