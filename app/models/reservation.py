@@ -7,7 +7,8 @@ class Reservations(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     status = Column(String, default="Disponivel")
-    created_at = Column(String)
-    updated_at = Column(String)
     schedule_id = Column(Integer, ForeignKey("schedules.id"))
     owner_id = Column(Integer, ForeignKey("users.id"))
+
+    created_at = Column(String)
+    updated_at = Column(String)

@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, Path
+from fastapi import APIRouter, Depends, Path, Query
+from schemas.schedule import ScheduleCreate
 from dependencies import db_dependency
 from starlette import status
 from typing import Annotated
@@ -23,6 +24,16 @@ def create_court(
     AdminService.create_court(user, court_request, db)
 
 
+@router.post("/schedules", status_code=status.HTTP_201_CREATED)
+def create_schedule(
+        user: user_dependency,
+        schedule_request: ScheduleCreate,
+        db: db_dependency,
+        court_id: int = Query(gt=0)
+):
+    AdminService.create_schedule(user, schedule_request, db, court_id)
+
+
 @router.delete("/courts/{court_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_court(
     user: user_dependency,
@@ -30,6 +41,11 @@ def delete_court(
     court_id: int = Path(gt=0)
 ):
     AdminService.delete_court(user, db, court_id)
+
+
+@router.delete("/schedules/{schedule_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_schedule(user: user_dependency, db: db_dependency, schedule_id: int = Path(gt=0)):
+    AdminService.delete_schedule(user, db, schedule_id)
 
 
 @router.delete("/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)

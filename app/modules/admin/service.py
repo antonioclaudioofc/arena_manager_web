@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 
 from fastapi import Depends
+from modules.schedule.repository import ScheduleRepository
+from models.schedule import Schedules
 from modules.user.respository import UserRepository
 from modules.auth.dependencies import get_current_user
 from modules.court.repository import CourtRepository
@@ -47,3 +49,26 @@ class AdminService:
             raise NotFoundException("Usuário não encontrado!")
 
         UserRepository.delete(user_model, db)
+
+    @staticmethod
+    def create_schedule(user: dict, schedule_request, db, court_id: int):
+        AdminService._ensure_admin(user)
+
+        schedule_model = Schedules(
+            **schedule_request.model_dump(),
+            court_id=court_id,
+            owner_id=user["id"],
+            created_at=datetime.now(timezone.utc)
+        )
+
+        return ScheduleRepository.create(schedule_model, db)
+
+    @staticmethod
+    def delete_schedule(user: dict, db, schedule_id: int):
+        AdminService._ensure_admin(user)
+
+        schedule_model = ScheduleRepository.get_by_id(db, schedule_id)
+        if not schedule_model:
+            raise NotFoundException("Horário não encontrado")
+
+        ScheduleRepository.delete(schedule_model, db)

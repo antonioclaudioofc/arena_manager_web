@@ -9,6 +9,7 @@ class Courts(Base):
     name = Column(String)
     sports_type = Column(String)
     description = Column(String)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
     created_at = Column(String)
     updated_at = Column(String)
-    owner_id = Column(Integer, ForeignKey("users.id"))

@@ -10,7 +10,8 @@ class Schedules(Base):
     start_time = Column(String)
     end_time = Column(String)
     available = Column(Boolean)
-    created_at = Column(String)
-    updated_at = Column(String)
     court_id = Column(Integer, ForeignKey("courts.id"))
     owner_id = Column(Integer, ForeignKey("users.id"))
+    
+    created_at = Column(String)
+    updated_at = Column(String)
