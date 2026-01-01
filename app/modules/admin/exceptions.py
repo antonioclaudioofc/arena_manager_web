@@ -1,4 +1,4 @@
-from shared.exceptions import ForbiddenException
+from app.shared.exceptions import ForbiddenException
 
 
 class AdminOnlyException(ForbiddenException):

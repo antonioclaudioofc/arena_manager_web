@@ -1,11 +1,10 @@
 from fastapi import APIRouter, Depends, Path
-from schemas.schedule import ScheduleResponse
-from modules.schedule.service import ScheduleService
-from dependencies import db_dependency
+from app.schemas.schedule import ScheduleResponse
+from app.modules.schedule.service import ScheduleService
+from app.dependencies import db_dependency
 from starlette import status
 from typing import Annotated
-from modules.auth.service import AuthService
-from dependencies import db_dependency
+from app.modules.auth.service import AuthService
 
 router = APIRouter(
     prefix="/schedules",

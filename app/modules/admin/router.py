@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, Path, Query
-from schemas.auth import UserResponse
-from schemas.reservation import ReservationResponseAdmin
-from schemas.schedule import ScheduleCreate
-from dependencies import db_dependency
+from app.schemas.auth import UserResponse
+from app.schemas.reservation import ReservationResponseAdmin
+from app.schemas.schedule import ScheduleCreate
+from app.dependencies import db_dependency
 from starlette import status
 from typing import Annotated
-from modules.auth.service import AuthService
-from schemas.court import CourtCreate
-from modules.admin.service import AdminService
+from app.modules.auth.service import AuthService
+from app.schemas.court import CourtCreate
+from app.modules.admin.service import AdminService
 
 router = APIRouter(
     prefix="/admin",

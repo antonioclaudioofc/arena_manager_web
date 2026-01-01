@@ -1,14 +1,14 @@
 from datetime import datetime, timezone
 from fastapi import Depends
-from modules.admin.repository import AdminRepository
-from modules.schedule.repository import ScheduleRepository
-from models.schedule import Schedules
-from modules.user.respository import UserRepository
-from modules.auth.dependencies import get_current_user
-from modules.court.repository import CourtRepository
-from models.court import Courts
-from modules.admin.exceptions import AdminOnlyException
-from shared.exceptions import NotFoundException
+from app.modules.admin.repository import AdminRepository
+from app.modules.schedule.repository import ScheduleRepository
+from app.models.schedule import Schedules
+from app.modules.user.respository import UserRepository
+from app.modules.auth.dependencies import get_current_user
+from app.modules.court.repository import CourtRepository
+from app.models.court import Courts
+from app.modules.admin.exceptions import AdminOnlyException
+from app.shared.exceptions import NotFoundException
 
 
 class AdminService:

@@ -1,1 +1,1 @@
-from .router import router
+from app.modules.auth.router import router

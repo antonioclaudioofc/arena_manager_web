@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
-from schemas.auth import UserResponse
-from schemas.schedule import ScheduleResponse
+from app.schemas.auth import UserResponse
+from app.schemas.schedule import ScheduleResponse
 
 
 class ReservationCreate(BaseModel):

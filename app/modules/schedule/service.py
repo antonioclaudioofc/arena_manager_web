@@ -1,5 +1,5 @@
-from modules.schedule.repository import ScheduleRepository
-from shared.exceptions import NotFoundException
+from app.modules.schedule.repository import ScheduleRepository
+from app.shared.exceptions import NotFoundException
 
 
 class ScheduleService:

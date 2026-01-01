@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, Query, Path
-from schemas.reservation import ReservationResponse
-from modules.auth.service import AuthService
-from modules.reservation.service import ReservationService
-from dependencies import db_dependency
+from app.schemas.reservation import ReservationResponse
+from app.modules.auth.service import AuthService
+from app.modules.reservation.service import ReservationService
+from app.dependencies import db_dependency
 from typing import Annotated
 from starlette import status
 

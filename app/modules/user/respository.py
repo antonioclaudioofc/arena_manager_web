@@ -1,4 +1,4 @@
-from models.auth import Users
+from app.models.auth import Users
 
 
 class UserRepository:

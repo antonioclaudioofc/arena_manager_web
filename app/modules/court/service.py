@@ -1,5 +1,5 @@
-from shared.exceptions import NotFoundException
-from modules.court.repository import CourtRepository
+from app.shared.exceptions import NotFoundException
+from app.modules.court.repository import CourtRepository
 
 
 class CourtService:

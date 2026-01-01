@@ -1,6 +1,6 @@
-from models.court import Courts
-from models.schedule import Schedules
-from models.reservation import Reservations
+from app.models.court import Courts
+from app.models.schedule import Schedules
+from app.models.reservation import Reservations
 
 
 class ReservationRepository:

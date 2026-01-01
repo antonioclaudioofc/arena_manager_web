@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from typing import Annotated
 from fastapi.security import OAuth2PasswordRequestForm
-from dependencies import db_dependency
-from schemas.auth import AuthCreate
-from schemas.token import Token
+from app.dependencies import db_dependency
+from app.schemas.auth import AuthCreate
+from app.schemas.token import Token
 from starlette import status
-from modules.auth.service import AuthService
+from app.modules.auth.service import AuthService
 
 router = APIRouter(
     prefix="/auth",

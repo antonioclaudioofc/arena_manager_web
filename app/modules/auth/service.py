@@ -1,11 +1,11 @@
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import JWTError
-from modules.auth.repository import AuthRepository
-from modules.auth.secutiry import create_access_token, decode_token
-from shared.exceptions import UnathorizedException
-from models.auth import Users
-from core.security import bcrypt_context, hash_password
+from app.modules.auth.repository import AuthRepository
+from app.modules.auth.secutiry import create_access_token, decode_token
+from app.shared.exceptions import UnathorizedException
+from app.models.auth import Users
+from app.core.security import bcrypt_context, hash_password
 from datetime import datetime, timedelta, timezone
 from .secutiry import oauth2_bearer
 

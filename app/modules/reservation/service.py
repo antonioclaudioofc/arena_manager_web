@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
-from models.reservation import Reservations
-from modules.reservation.repository import ReservationRepository
-from shared.exceptions import NotFoundException, UnathorizedException
+from app.models.reservation import Reservations
+from app.modules.reservation.repository import ReservationRepository
+from app.shared.exceptions import NotFoundException, UnathorizedException
 
 
 class ReservationService:

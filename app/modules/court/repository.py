@@ -1,4 +1,4 @@
-from models.court import Courts
+from app.models.court import Courts
 
 
 class CourtRepository:

@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
-from dependencies import db_dependency
+from app.dependencies import db_dependency
 from typing import Annotated
-from modules.auth.service import AuthService
+from app.modules.auth.service import AuthService
 from starlette import status
-from schemas.auth import UserVerification
-from modules.user.service import UserService
+from app.schemas.auth import UserVerification
+from app.modules.user.service import UserService
 
 
 router = APIRouter(

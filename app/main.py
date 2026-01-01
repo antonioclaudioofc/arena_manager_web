@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from core.database import engine, Base
-from modules import auth, user, admin, court, schedule, reservation
+from app.core.database import engine, Base
+from app.modules import auth, user, admin, court, schedule, reservation
 
 app = FastAPI(title="Arena Manager")
 

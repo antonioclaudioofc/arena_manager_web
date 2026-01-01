@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
-from modules.user.respository import UserRepository
-from shared.exceptions import NotFoundException, UnathorizedException
-from core.security import bcrypt_context
+from app.modules.user.respository import UserRepository
+from app.shared.exceptions import NotFoundException, UnathorizedException
+from app.core.security import bcrypt_context
 
 
 class UserService:

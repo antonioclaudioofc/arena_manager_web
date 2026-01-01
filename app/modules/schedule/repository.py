@@ -1,4 +1,4 @@
-from models.schedule import Schedules
+from app.models.schedule import Schedules
 
 
 class ScheduleRepository:

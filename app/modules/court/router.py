@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Path
-from schemas.court import CourtResponse
-from dependencies import db_dependency
+from app.schemas.court import CourtResponse
+from app.dependencies import db_dependency
 from starlette import status
-from modules.court.service import CourtService
+from app.modules.court.service import CourtService
 
 
 router = APIRouter(
