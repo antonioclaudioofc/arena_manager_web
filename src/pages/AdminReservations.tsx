@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "../components/Dialog";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
 
 interface AdminReservation {
   id: number;

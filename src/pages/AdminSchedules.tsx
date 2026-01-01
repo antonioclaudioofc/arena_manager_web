@@ -28,7 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/Select";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 

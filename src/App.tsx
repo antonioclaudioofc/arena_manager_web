@@ -1,11 +1,11 @@
 import Home from "./pages/Home";
 import logo from "./assets/logo.svg";
-import { Button } from "./components/button";
 import { Avatar, AvatarImage, AvatarFallback } from "./components/Avatar";
 import { useContext, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { useNavigate } from "react-router";
 import { ChevronDown, CircleUserRound, LogOut, Volleyball } from "lucide-react";
+import { Button } from "./components/Button";
 
 export default function App() {
   const auth = useContext(AuthContext);

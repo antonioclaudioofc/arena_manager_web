@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "./Dialog";
-import { Button } from "./button";
+import { Button } from "./Button";
 
 export default function ScheduleCard({
   schedule,

@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/Select";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
 import { X } from "lucide-react";
 
 const sports = ["FutVôlei", "Vôlei", "Beach tennis"];

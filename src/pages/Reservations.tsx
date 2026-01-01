@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "../components/Dialog";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
 import { ArrowLeft, X } from "lucide-react";
 import logo from "../assets/logo.svg";
 import dayjs from "dayjs";

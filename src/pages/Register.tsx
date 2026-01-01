@@ -7,7 +7,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
 import {
   Form,
   FormField,
