@@ -1,82 +1,162 @@
-# 🏟️ Arena Manager
+﻿# Arena Manager Web
 
-## Descrição
+Sistema completo de gerenciamento de reservas de quadras esportivas com autenticação de usuários e painel administrativo.
 
-`Arena Manager` é uma API construída com FastAPI para gerenciar arenas e quadras esportivas (ex.: vôlei, futvôlei, futsal, society). O projeto organiza funcionalidades em `routers`, `services`, `models` e `schemas`, fornecendo endpoints para usuários, autenticação, quadras, horários e reservas.
+##  Recursos
 
-## Recursos principais
+### Para Usuários
+-  Visualizar e agendar reservas de quadras
+-  Filtrar quadras por data e horário disponível
+-  Gerenciar perfil pessoal
+-  Consultar histórico de reservas
+-  Cancelar reservas quando necessário
 
-- Endpoints REST para usuários, autenticação, quadras, agenda e reservas
-- Arquitetura modular com separação entre routers e services
-- Integração com SQLAlchemy e Alembic para migrações de banco
-- Documentação automática via Swagger UI e ReDoc
+### Para Administradores
+-  Painel de controle completo
+-  Gerenciar quadras (CRUD)
+-  Gerenciar usuários
+-  Gerenciar agendas e horários
+-  Visualizar todas as reservas
 
-## Instalação (Windows PowerShell)
+##  Tecnologias Utilizadas
 
-1. Clone o repositório e entre na pasta do projeto:
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Notificações**: Sonner
+- **Forms**: React Hook Form + Zod
+- **Routing**: React Router v6
+- **HTTP Client**: Fetch API
+- **Deployment**: Vercel
 
-```powershell
-git clone <repo-url>
-cd arena_manager_server
-```
+##  Instalação
 
-2. Crie e ative um ambiente virtual e instale dependências:
+### Pré-requisitos
+- Node.js 18+
+- npm ou yarn
 
-```powershell
-python -m venv env
-.\env\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+### Passos
 
-## Variáveis de ambiente
+1. **Clone o repositório**
+``bash
+git clone https://github.com/antonioclaudioofc/arena_manager.git
+cd arena_manager
+``
 
-Crie um arquivo `.env` na raiz do projeto com, pelo menos, as seguintes variáveis:
+2. **Instale as dependências**
+``bash
+npm install
+``
 
-- `SQLALCHEMY_DATABASE_URL` — URL de conexão com o banco (ex.: `postgresql://user:pass@host:5432/dbname`)
-- `SECRET_KEY` — chave secreta para geração de tokens
-- `ALGORITHM` — algoritmo usado para tokens (ex.: `HS256`)
+3. **Inicie o servidor de desenvolvimento**
+``bash
+npm run dev
+``
 
-O arquivo `app/core/config.py` já utiliza `dotenv` para carregar essas variáveis.
 
-## Migrações (Alembic)
+##  Scripts Disponíveis
 
-O projeto já inclui configuração do Alembic em `app/alembic.ini`.
+``bash
+# Desenvolvimento
+npm run dev          # Inicia servidor de desenvolvimento com HMR
 
-Gerar uma migration e aplicar:
+# Build
+npm run build        # Compila para produção
 
-```powershell
-alembic -c app/alembic.ini revision --autogenerate -m "mensagem"
-alembic -c app/alembic.ini upgrade head
-```
+# Pré-visualização
+npm run preview      # Pré-visualiza build de produção localmente
 
-> Observação: verifique se `SQLALCHEMY_DATABASE_URL` está configurada corretamente antes de rodar as migrações.
+# Linting
+npm run lint         # Verifica erros de código com ESLint
+``
 
-## Executando a aplicação (desenvolvimento)
+##  Autenticação
 
-Use `uvicorn` para executar a API em modo de desenvolvimento:
+### Demo Rápido
+Você pode testar o aplicativo com credenciais de demo na página de login:
 
-```powershell
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
+- **Admin**
+- **User**
 
-Após iniciado, a documentação estará disponível em:
+### Fluxo de Autenticação
+1. Login com credenciais
+2. Token JWT armazenado localmente
+3. Redirecionamento automático baseado em role (admin/user)
+4. Token incluído em todas as requisições autenticadas
 
-- Swagger UI: `http://localhost:8000/docs`
+##  Estrutura do Projeto
 
-## Endpoints principais (routers existentes)
+``
+src/
+ assets/           # Imagens e ícones
+ components/       # Componentes reutilizáveis
+    Button.tsx
+    CourtList.tsx
+    Form.tsx
+    Input.tsx
+    Label.tsx
+    ScheduleCard.tsx
+    Sonner.tsx
+ context/          # Context API para estado global
+    AuthContext.tsx
+ lib/              # Utilitários
+    utils.ts
+ pages/            # Páginas da aplicação
+    Home.tsx
+    Login.tsx
+    Register.tsx
+    Profile.tsx
+    UserReservations.tsx
+    Dashboard.tsx
+    AdminCourts.tsx
+    AdminUsers.tsx
+    AdminReservations.tsx
+    AdminSchedules.tsx
+ routes/           # Proteção de rotas
+    ProtectedRoute.tsx
+    PublicRoute.tsx
+ App.tsx           # Componente raiz
+ main.tsx          # Entrada da aplicação
+ index.css         # Estilos globais
+``
 
-- `user` — gestão de usuários
-- `auth` — autenticação (login/token)
-- `court` — CRUD de quadras/arenas
-- `schedule` — gerenciamento de horários
-- `reservation` — criar e consultar reservas
-- `admin` — rotas administrativas
+##  API Backend
 
-> Para ver os detalhes de cada rota, abra o Swagger UI (`/docs`) após iniciar o servidor.
+A aplicação conecta-se a um backend FastAPI:
+``
+Base URL: https://arena-manager-bvlw.onrender.com
+``
 
-## Estrutura do projeto (resumo)
+### Endpoints principais:
+- POST /auth/token - Autenticação
+- GET / - Listar quadras
+- GET /schedule/ - Listar horários
+- GET /reservation/ - Listar reservas do usuário
+- POST /reservation/ - Criar reserva
+- DELETE /reservation/{id} - Cancelar reserva
+- GET /admin/* - Endpoints administrativos
 
-- `app/` — código da aplicação (routers, models, schemas, services)
-- `app/main.py` — ponto de entrada
-- `app/alembic/` — migrações
-- `requirements.txt` — dependências
+##  Funcionalidades em Detalhes
+
+### Página Home
+- Header com branding e controles de usuário
+- Data pills para selecionar dia
+- Lista de quadras com horários disponíveis
+- Botão de agendamento direto
+- Para admins: botão de acesso ao dashboard
+
+### Área do Usuário
+- **Perfil**: Visualizar informações pessoais
+- **Minhas Reservas**: Listar e cancelar reservas
+
+### Painel Admin
+- **Quadras**: Adicionar, editar, deletar
+- **Usuários**: Listar e remover usuários
+- **Horários**: Gerenciar agenda de disponibilidade
+- **Reservas**: Visualizar todas as reservas do sistema
+
+##  Desenvolvedor
+
+**Antônio Claudio**
+- GitHub: [@antonioclaudioofc](https://github.com/antonioclaudioofc)

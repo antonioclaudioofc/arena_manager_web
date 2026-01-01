@@ -1,1 +1,0 @@
-from app.modules.court.router import router
