@@ -10,22 +10,22 @@ export default function AdminDashboard() {
           <h3 className="text-gray-500 text-sm font-medium">
             Total de Quadras
           </h3>
-          <p className="text-3xl font-bold text-green-600 mt-2">8</p>
+          <p className="text-3xl font-bold text-green-600 mt-2">--</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Reservas Hoje</h3>
-          <p className="text-3xl font-bold text-blue-600 mt-2">12</p>
+          <p className="text-3xl font-bold text-blue-600 mt-2">--</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Usuários Ativos</h3>
-          <p className="text-3xl font-bold text-purple-600 mt-2">47</p>
+          <p className="text-3xl font-bold text-purple-600 mt-2">--</p>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-gray-500 text-sm font-medium">Receita Mensal</h3>
-          <p className="text-3xl font-bold text-yellow-600 mt-2">R$ 8.5k</p>
+          <p className="text-3xl font-bold text-yellow-600 mt-2">--</p>
         </div>
       </div>
 

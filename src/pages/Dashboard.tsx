@@ -13,7 +13,7 @@ export default function Dashboard() {
         <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <SidebarTrigger className="text-gray-600 hover:text-green-600 hover:bg-green-50 p-3 rounded-lg transition-colors " />
-            <h1 className="text-xl font-semibold text-gray-800">
+            <h1 className="text-xl font-semibold text-gray-800 max-lg:hidden">
               Painel Administrativo
             </h1>
           </div>

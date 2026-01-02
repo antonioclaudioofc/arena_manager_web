@@ -161,7 +161,7 @@ export default function AdminSchedules() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-wrap gap-3 justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Gerenciar Horários</h1>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
@@ -188,7 +188,7 @@ export default function AdminSchedules() {
         </Dialog>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white rounded-lg shadow overflow-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -451,7 +451,7 @@ function FormSchedule({
           )}
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 max-md:grid-cols-1">
           <FormField
             control={form.control}
             name="start_time"
@@ -506,7 +506,7 @@ function FormSchedule({
           )}
         />
 
-        <div className="flex justify-end gap-3 pt-4">
+        <div className="flex flex-wrap justify-end gap-3 pt-4">
           <Button
             type="button"
             variant="destructive"

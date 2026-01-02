@@ -126,7 +126,7 @@ export default function AdminCourts() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-wrap gap-3 justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Gerenciar Quadras</h1>
         <Button onClick={() => setDialogOpen(true)} className="w-max">
           + Nova Quadra
@@ -143,56 +143,45 @@ export default function AdminCourts() {
         </DialogContent>
       </Dialog>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white rounded-lg shadow overflow-auto">
         <table className="w-full">
           <thead className="bg-gray-50 border-b">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className=" px-3 sm:px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Nome
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className=" px-3 sm:px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Tipo de Esporte
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-3 sm:px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Descrição
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className=" px-3 sm:px-4 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Ações
               </th>
             </tr>
           </thead>
+
           <tbody className="bg-white divide-y divide-gray-200">
-            {loading ? (
-              <tr>
-                <td colSpan={4} className="px-6 py-8 text-center text-gray-500">
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-5 h-5 border-2 border-green-600 border-t-transparent rounded-full animate-spin"></div>
-                    Carregando quadras...
-                  </div>
+            {courts.map((court) => (
+              <tr key={court.id}>
+                <td className="px-3 sm:px-4 lg:px-6 py-4 text-sm font-medium text-gray-900 break-words">
+                  {court.name}
                 </td>
-              </tr>
-            ) : courts.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="px-6 py-8 text-center text-gray-500">
-                  Nenhuma quadra cadastrada ainda
+
+                <td className="px-3 sm:px-4 lg:px-6 py-4 text-sm text-gray-500 break-words">
+                  {court.sports_type}
                 </td>
-              </tr>
-            ) : (
-              courts.map((court) => (
-                <tr key={court.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {court.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {court.sports_type}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
-                    {court.description}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+
+                <td className="px-3 sm:px-4 lg:px-6 py-4 text-sm text-gray-500 break-words line-clamp-2">
+                  {court.description}
+                </td>
+
+                <td className="px-3 sm:px-4 lg:px-6 py-4 text-sm font-medium">
+                  <div className="flex flex-wrap gap-2">
                     <button
                       onClick={() => handleEdit(court)}
-                      className="text-blue-600 hover:text-blue-900 mr-4"
+                      className="text-blue-600 hover:text-blue-900"
                     >
                       Editar
                     </button>
@@ -202,10 +191,10 @@ export default function AdminCourts() {
                     >
                       Excluir
                     </button>
-                  </td>
-                </tr>
-              ))
-            )}
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -457,7 +446,7 @@ function FormCourt({
             )}
           />
 
-          <div className="flex gap-3 justify-end pt-4">
+          <div className="flex flex-wrap gap-3 justify-end pt-4">
             <Button
               type="button"
               variant={"destructive"}

@@ -113,7 +113,7 @@ export default function AdminReservations() {
         <h1 className="text-3xl font-bold text-gray-800">Gerenciar Reservas</h1>
       </div>
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white rounded-lg shadow overflow-auto">
         <table className="w-full">
           <thead className="bg-gray-50 border-b">
             <tr>
